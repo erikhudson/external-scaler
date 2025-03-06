@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-scaler
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: external-scaler
+  template:
+    metadata:
+      labels:
+        app: external-scaler
+    spec:
+      containers:
+        - name: external-scaler
+          image: erikhudson/external-scaler:v4  # Atualize com o registry correto
+          ports:
+            - containerPort: 6000  
+          env:
+            - name: ONPREMISE_ENDPOINTS
+              value: "http://20.161.40.189:8080/health"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3

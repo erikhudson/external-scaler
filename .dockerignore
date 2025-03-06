@@ -1,0 +1,21 @@
+# Ignorar arquivos Kubernetes
+*.yaml
+*.yml
+
+# Ignorar Dockerfile e configs sensíveis
+Dockerfile
+docker-compose.yml
+
+# Ignorar arquivos de configuração local e credenciais
+.env
+*.pem
+*.key
+
+# Ignorar arquivos Python desnecessários
+__pycache__
+*.pyc
+
+# Ignorar arquivos de edição temporária e IDE
+.vscode/
+.idea/
+*.log
